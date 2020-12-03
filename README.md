@@ -30,6 +30,5 @@
 
 ## Tema 5
     1. ColisionesBolas
-    2. SuperPang
     
  # Jesús Manuel González Santiago
