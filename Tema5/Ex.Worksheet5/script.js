@@ -1,3 +1,4 @@
+//Clase Nota
 class Nota{
   constructor(id,titulo,texto,fecha){
     this.id = id;
@@ -21,6 +22,8 @@ window.onload = () =>{
   }
 }
 
+// Funcion que dibuja las notas si se han guardado en la página al cargarla.
+
 function dibujarnotas(){
   for(var i =0;i<notas.length;i++){
     var id = notas[i].id;
@@ -31,7 +34,6 @@ function dibujarnotas(){
      divNota.setAttribute("class", "postit");
      divNota.setAttribute("contenteditable", "false");
      divNota.setAttribute("style", "height:auto;width:200px");
-     divNota.setAttribute("onclick", "cambiartexto(event)");
      divNota.setAttribute("onmousedown", "movernota(event)");
     var divcerrar = document.createElement("div");
         divcerrar.setAttribute("align","right");
@@ -81,25 +83,15 @@ function dibujarnotas(){
 
  }
 }
-function actualizarmin(){
-  console.log("hola");
-  for(var i =0;i<notas.length;i++){
-    var id = notas[i].id;
-    var constante = id.substr(4,id.length);
-    var  parrafo = document.getElementsByClassName("fecha"+constante);
-    var fecha = Date.parse(notas[i].fecha);
-     var fechahoy = new Date();
-     var diffMs = (fechahoy - fecha);
-     var min = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-     parrafo[0].textContent=min+" min";
-  }
-}
 
+//Funcion que elimina toda la informacion de la página y la recarga
 
 function eliminartodo(){
   localStorage.clear();
   location.reload();
 }
+
+//Funcion en la que se crean todos los componentes internos de la nota.
 
 function crear(){
   if(!sepuedecrear){
@@ -110,7 +102,6 @@ function crear(){
      divNota.setAttribute("class", "postit");
      divNota.setAttribute("contenteditable", "false");
      divNota.setAttribute("style", "height:auto;width:200px");
-     divNota.setAttribute("onclick", "cambiartexto(event)");
      divNota.setAttribute("onmousedown", "movernota(event)");
     var divcerrar = document.createElement("div");
         divcerrar.setAttribute("align","right");
@@ -158,6 +149,8 @@ function crear(){
  }
 }
 
+//Funcion que cierra las notas y las elimina tanto del array como de la pagina.
+
 function cerrarnota(evento){
   if (confirm("¿Estas seguro?")) {
     txt = "Sí";
@@ -174,6 +167,9 @@ function cerrarnota(evento){
 
 }
 
+//Funcion que se llama al pulsar encima del edit que sirve para mostrar el boton
+// y poder editar los parrafos.
+
 function editarnota(evento){
   if(!iseditando){
     var id = evento.target.parentNode.parentNode.id;
@@ -186,31 +182,35 @@ function editarnota(evento){
         var nested = document.getElementsByClassName("boton"+id.substr(4,id.length));
         nested[0].style.visibility="visible";
         editaa = true;
+        sepuedecrear = false;
+        iseditando=true;
       }
     }
-    sepuedecrear = false;
-    iseditando=true;
+
   }
 }
+
+//Funcion que se utiliza en el método onclick del boton de la nota , que segun
+//si previamente se ha dado al boton de editar o no se utiliza para editar o crear notas.
 
 function crearnota(event){
 var id = event.target.parentNode.id;
 if(editaa){
   if (confirm("¿Estas seguro?")) {
     txt = "Sí";
-  var titulo = document.getElementsByClassName("titulo"+cont);
-  var texto = document.getElementsByClassName("texto"+cont);
+  var titulo = document.getElementsByClassName("titulo"+id.substr(4,id.length));
+  var texto = document.getElementsByClassName("texto"+id.substr(4,id.length));
   var fecha = new Date();
 
   for(var i =0;i<notas.length;i++){
-    alert("hola");
     if(id==notas[i].id){
       notas[i].titulo = titulo[0].textContent;
       notas[i].texto = texto[0].textContent;
       notas[i].fecha = new Date();
-      var divNota = document.getElementById("nota"+cont);
-      var nested = document.getElementsByClassName("boton"+cont);
-      var editar = document.getElementsByClassName("editar"+cont);
+      var id2= notas[i].id;
+      var divNota = document.getElementById("nota"+id2.substr(4,id2.length));
+      var nested = document.getElementsByClassName("boton"+id2.substr(4,id2.length));
+      var editar = document.getElementsByClassName("editar"+id2.substr(4,id2.length));
       titulo[0].setAttribute("contenteditable", "false");
       texto[0].setAttribute("contenteditable", "false");
       nested[0].style.visibility="hidden";
@@ -252,14 +252,23 @@ if(editaa){
 }
 
 
-function cambiartexto(evento){
-  try{
-    var valor = evento.target.id;
-    id = document.getElementById(valor);
-    id.contenteditable="true";
-  }catch(error){}
+//Funcion que actualiza los minutos de todas las notas.
+
+function actualizarmin(){
+  console.log("hola");
+  for(var i =0;i<notas.length;i++){
+    var id = notas[i].id;
+    var constante = id.substr(4,id.length);
+    var  parrafo = document.getElementsByClassName("fecha"+constante);
+    var fecha = Date.parse(notas[i].fecha);
+     var fechahoy = new Date();
+     var diffMs = (fechahoy - fecha);
+     var min = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+     parrafo[0].textContent=min+" min";
+  }
 }
 
+//Funcion que mueve la nota de posicion.
 
 function movernota(evento){
   try{
