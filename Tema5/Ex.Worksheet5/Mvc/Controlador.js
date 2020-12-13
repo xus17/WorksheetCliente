@@ -1,12 +1,4 @@
-//Clase Nota
-class Nota{
-  constructor(id,titulo,texto,fecha){
-    this.id = id;
-    this.titulo = titulo;
-    this.texto = texto;
-    this.fecha = fecha;
-  }
-}
+  import {Nota} from "./Modelo.js";
 
 var cont=0;
 var sepuedecrear = false;
@@ -15,6 +7,12 @@ let editaa = false;
 let iseditando = false;
 
 window.onload = () =>{
+
+  var crear2 = document.getElementsByClassName("add");
+  crear2[0].addEventListener("click",crearnota1);
+  var modo= document.getElementsByClassName("modo");
+  modo[0].addEventListener("click",cambiarVista);
+  // crear[0].setAttribute("onclick","crear()");
   if(localStorage.getItem("notas") != null){
     notas = JSON.parse(localStorage.getItem("notas"));
     dibujarnotas();
@@ -50,16 +48,18 @@ function dibujarnotas(){
      divNota.setAttribute("class", "postit");
      divNota.setAttribute("contenteditable", "false");
      divNota.setAttribute("style", "height:auto;width:200px");
-     divNota.setAttribute("onmousedown", "movernota(event)");
+     //divNota.addEventListener("mousedown" , function(){movernota(event)});
     var divcerrar = document.createElement("div");
         divcerrar.setAttribute("align","right");
     var diva = document.createElement("a");
-     diva.setAttribute("onclick","cerrarnota(event)");
+    diva.addEventListener("click",cerrarnota(event));
+     //diva.setAttribute("onclick","cerrarnota(event)");
      diva.setAttribute("contenteditable", "false");
      diva.setAttribute("style","color:blue");
      diva.textContent="[X]";
     var diva2 = document.createElement("a");
-      diva2.setAttribute("onclick","editarnota(event)");
+    diva2.addEventListener("click",editarnota(event));
+      //diva2.setAttribute("onclick","editarnota(event)");
       diva2.setAttribute("class","editar"+cont);
       diva2.setAttribute("contenteditable", "false");
       diva2.setAttribute("style","color:red");
@@ -87,16 +87,16 @@ function dibujarnotas(){
     var boton = document.createElement("button");
         boton.setAttribute("class","boton"+cont);
         boton.setAttribute("align","right");
-        boton.setAttribute("onclick", "crearnota(event)");
+        boton.addEventListener("click",crearnota(event));
+        //boton.setAttribute("onclick", "crearnota(event)");
         boton.textContent="Aceptar";
         boton.setAttribute("style","visibility:hidden");
-   divNota.appendChild(divcerrar);
-   divNota.appendChild(divp);
-   divNota.appendChild(divp2);
-   divNota.appendChild(divp3);
-   divNota.appendChild(boton);
-   division.appendChild(divNota);
-
+       divNota.appendChild(divcerrar);
+       divNota.appendChild(divp);
+       divNota.appendChild(divp2);
+       divNota.appendChild(divp3);
+       divNota.appendChild(boton);
+       division.appendChild(divNota);
  }
 }
 
@@ -109,7 +109,7 @@ function eliminartodo(){
 
 //Funcion en la que se crean todos los componentes internos de la nota.
 
-function crear(){
+function crearnota1(){
   if(!sepuedecrear){
     cont++;
    var division = document.getElementById("bloque");
@@ -118,16 +118,19 @@ function crear(){
      divNota.setAttribute("class", "postit");
      divNota.setAttribute("contenteditable", "false");
      divNota.setAttribute("style", "height:auto;width:200px");
-     divNota.setAttribute("onmousedown", "movernota(event)");
+    //divNota.addEventListener("mousedown" , function(){movernota(event)});
     var divcerrar = document.createElement("div");
         divcerrar.setAttribute("align","right");
     var diva = document.createElement("a");
-     diva.setAttribute("onclick","cerrarnota(event)");
+     meter(diva);
+      diva.setAttribute("onclick",cerrarnota(event));
+     //diva.setAttribute("onclick","cerrarnota(event)");
      diva.setAttribute("contenteditable", "false");
      diva.setAttribute("style","color:blue");
      diva.textContent="[X]";
     var diva2 = document.createElement("a");
-      diva2.setAttribute("onclick","editarnota(event)");
+    diva2.addEventListener("onclick",editarnota(event));
+      //diva2.setAttribute("onclick","editarnota(event)");
       diva2.setAttribute("class","editar"+cont);
       diva2.setAttribute("contenteditable", "false");
       diva2.setAttribute("style","color:red");
@@ -153,15 +156,16 @@ function crear(){
     var boton = document.createElement("button");
         boton.setAttribute("class","boton"+cont);
         boton.setAttribute("align","right");
-        boton.setAttribute("onclick", "crearnota(event)");
+        //boton.addEventListener("click",crearnota(event));
+        //boton.setAttribute("onclick", "crearnota(event)");
         boton.textContent="Aceptar";
-   divNota.appendChild(divcerrar);
-   divNota.appendChild(divp);
-   divNota.appendChild(divp2);
-   divNota.appendChild(divp3);
-   divNota.appendChild(boton);
-   division.appendChild(divNota);
-   sepuedecrear = true;
+       divNota.appendChild(divcerrar);
+       divNota.appendChild(divp);
+       divNota.appendChild(divp2);
+       divNota.appendChild(divp3);
+       divNota.appendChild(boton);
+       division.appendChild(divNota);
+       sepuedecrear = true;
  }
 }
 
@@ -209,7 +213,7 @@ function editarnota(evento){
 //Funcion que se utiliza en el método onclick del boton de la nota , que segun
 //si previamente se ha dado al boton de editar o no se utiliza para editar o crear notas.
 
-function crearnota(event){
+function crearnota2(event){
 var id = event.target.parentNode.id;
 if(editaa){
   if (confirm("¿Estas seguro?")) {
