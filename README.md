@@ -33,5 +33,9 @@
     2. Worksheet5
     3. ColisionesBolas
     4. Ajax
-    
+
+## Tema 7
+    1. Worksheet1
+    2. Worksheet3
+
  # Jesús Manuel González Santiago
