@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+    body {
+      background-color: rgb(54, 47, 46);
+      width: 100vw;
+      height: 100vh;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    div,
+    h1 {
+      color: white;
+    }
+
+    input {
+      width: 80%;
+      height: 10rem;
+    }
+
+    .principal {
+      width: 95vw;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(117, 103, 110);
+    }
+
+    .dvLinea {
+      font-size: 30px;
+      margin-top: 1rem;
+      width: 75%;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Project Vue.js Jesús Manuel González Santiago</h1>
+  <div id="app">
+    <input type="text" name="" v-model="valor" v-on:keyup.enter="anadirRecord()"></input>
+    <!-- <button type="button" v-on:click="anadirRecord()" name="button">Nuevo recordatorio</button> -->
+    <div v-for="(recordatorio,index) in listarecord" class="principal">
+      <div v-on:click="cambiarEstado($event,index)" class="dvLinea">
+        {{recordatorio.contenido}}
+      </div>
+      <button v-on:click="borrar(index)">
+        Borrar
+      </button>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="script.js" charset="utf-8"></script>
+</body>
+
+</html>
