@@ -40,5 +40,9 @@
 
 ## Vue
     1. Notas
+    2. Notas Firebase
+
+## Socket
+    1. Chat
 
  # Jesús Manuel González Santiago
