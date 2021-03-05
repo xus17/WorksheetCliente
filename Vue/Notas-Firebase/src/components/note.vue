@@ -22,7 +22,8 @@
       <input type="text" name="" value=""  v-model="empiezapor" class="tocho2" />
     </div>
 
-    <div v-for="(nota, index) in notas" class="principal" v-bind:key="nota.id">
+    <div v-for="(nota, index) in listaNotasFiltrada" class="principal" v-bind:key="nota.id">
+      
       <div class="dvLinea">
         {{ nota.Comentario }}
         <div class="">
@@ -130,16 +131,19 @@ export default {
       return total;
     },
     listaNotasFiltrada: function () {
-        if (this.empiezaPor) {
-          return this.notas.filter(nota => {
-            return nota.Comentario.indexOf(this.empiezaPor) != -1;
-          });
-        } else {
-          return this.notas;
+        if (this.empiezapor == "") {
+            return this.notas;
+        }else{
+          return this.notas.filter((note) => {
+            if ((note.Comentario.indexOf(this.empiezapor))>=0) {
+                return true;
+            } else {
+                return false;
+              }
+          })
         }
-      }
   }
-}
+}}
 </script>
 
 <style scoped>
